@@ -3,13 +3,58 @@ import 'package:http/http.dart' as http;
 import '../config/api_config.dart';
 import '../models/order.dart';
 
+class OrderResponse {
+  final List<Order> orders;
+  final Pagination pagination;
+
+  OrderResponse({
+    required this.orders,
+    required this.pagination,
+  });
+
+  factory OrderResponse.fromJson(Map<String, dynamic> json) {
+    return OrderResponse(
+      orders: (json['orders'] as List)
+          .map((orderJson) => Order.fromJson(orderJson))
+          .toList(),
+      pagination: Pagination.fromJson(json['pagination']),
+    );
+  }
+}
+
+class Pagination {
+  final int total;
+  final int page;
+  final int pages;
+
+  Pagination({
+    required this.total,
+    required this.page,
+    required this.pages,
+  });
+
+  factory Pagination.fromJson(Map<String, dynamic> json) {
+    return Pagination(
+      total: json['total'],
+      page: json['page'],
+      pages: json['pages'],
+    );
+  }
+}
+
 class OrderService {
-  Future<List<Order>> getOrders({
+  Future<OrderResponse> getOrders({
     DateTime? startDate,
     DateTime? endDate,
     String? status,
+    int page = 1,
+    int limit = 1000,
   }) async {
-    final queryParams = <String, String>{};
+    final queryParams = <String, String>{
+      'page': page.toString(),
+      'limit': limit.toString(),
+    };
+    
     if (startDate != null) {
       queryParams['startDate'] = startDate.toIso8601String();
     }
@@ -26,8 +71,8 @@ class OrderService {
     );
 
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => Order.fromJson(json)).toList();
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return OrderResponse.fromJson(data);
     } else {
       throw Exception('Failed to load orders');
     }

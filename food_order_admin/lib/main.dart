@@ -3,6 +3,7 @@ import 'screens/auth/login_screen.dart';
 import 'screens/auth/register_screen.dart';
 import 'screens/orders/order_list_screen.dart';
 import 'screens/orders/order_details_screen.dart';
+import 'config/theme_config.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,10 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Food Order Admin',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       initialRoute: '/login',
       routes: {
         '/': (context) => LoginScreen(),

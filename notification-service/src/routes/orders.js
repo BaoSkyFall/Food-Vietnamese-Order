@@ -40,12 +40,23 @@ router.get('/', async(req, res) => {
 
         const skip = (page - 1) * limit;
 
+        // Changed sort order to get newest data first
         const orders = await Order.find(query)
-            .sort({ createdAt: -1 })
+            .sort({ orderDate: -1 }) // -1 means descending order (newest first)
             .skip(skip)
             .limit(parseInt(limit));
 
-        res.json(orders);
+        // Get total count for pagination
+        const total = await Order.countDocuments(query);
+
+        res.json({
+            orders,
+            pagination: {
+                total,
+                page: parseInt(page),
+                pages: Math.ceil(total / limit)
+            }
+        });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

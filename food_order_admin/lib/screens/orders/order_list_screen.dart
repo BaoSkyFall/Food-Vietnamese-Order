@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../models/order.dart';
 import '../../services/order_service.dart';
 import '../../widgets/order_card.dart'; // Add this import
+import '../../widgets/status_badge.dart';
 
 class OrdersListScreen extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _OrdersListScreenState extends State<OrdersListScreen> {
         endDate: _dateRange?.end,
         status: _statusFilter,
       );
-      setState(() => _orders = orders);
+      setState(() => _orders = orders.orders);
     } catch (e) {
       print('Error loading orders: $e');
       if (mounted) {

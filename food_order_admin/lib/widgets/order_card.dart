@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/order.dart';
 import 'package:intl/intl.dart';
 
+import 'status_badge.dart';
+
 class OrderCard extends StatelessWidget {
   final Order order;
   final VoidCallback onTap;
@@ -16,7 +18,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd/MM/yyyy HH:mm');
     final formattedDate = dateFormat.format(order.orderDate);
-    
+
     final priceFormat = NumberFormat('#,###');
     final formattedTotal = priceFormat.format(order.total);
 
@@ -43,17 +45,22 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Order #${order.id}',
+                    'Order #${order.id.substring(order.id.length - 4,order.id.length)}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Icon(Icons.chevron_right),
                 ],
               ),
               SizedBox(height: 8),
-              Text('Status: ${order.status}'),
-              Text('Date: $formattedDate'),
-              Text('Total: ${formattedTotal}₫'),
-              Text('Customer: ${order.customerInfo.name}'),
+              Row(
+                children: [
+                  Text('Trạng Thái Đơn Hàng: '),
+                  StatusBadge(status: order.status),
+                ],
+              ),
+              Text('Ngày Đặt: $formattedDate'),
+              Text('Tổng Tiền: ${formattedTotal}₫'),
+              Text('Khách Hàng: ${order.customerInfo.name}'),
             ],
           ),
         ),

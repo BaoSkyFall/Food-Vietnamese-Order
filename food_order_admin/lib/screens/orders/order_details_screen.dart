@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/order.dart';
 import '../../services/order_service.dart';
+import '../../widgets/status_badge.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final String orderId;
@@ -74,7 +75,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     if (_order == null) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Order Details'),
+          title: Text('Chi tiết đơn hàng'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context, true),
@@ -97,16 +98,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Trạng Thái Đơn Hàng: ${_order!.status}'),
+            Row(
+              children: [
+                Text('Trạng Thái Đơn Hàng: '),
+                StatusBadge(status: _order!.status),
+              ],
+            ),
             Text('Ngày đặt: ${_order!.orderDate}'),
-            
             Divider(),
             Text('Thông Tin Khách Hàng',
                 style: Theme.of(context).textTheme.titleLarge),
             Text('Tên: ${_order!.customerInfo.name}'),
             Text('Số điện thoại: ${_order!.customerInfo.phone}'),
             Text('Địa chỉ: ${_order!.customerInfo.address}'),
-            
             Divider(),
             Text('Món Ăn', style: Theme.of(context).textTheme.titleLarge),
             ListView.builder(
@@ -122,11 +126,9 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 );
               },
             ),
-            
             Divider(),
-            Text('Tổng ti��n: ${_order!.total}',
+            Text('Tổng tiềnn: ${_order!.total}',
                 style: Theme.of(context).textTheme.titleLarge),
-            
             Divider(),
             Text('Ghi Chú', style: Theme.of(context).textTheme.titleLarge),
             TextField(
@@ -151,27 +153,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 );
               },
             ),
-            
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: _isLoading
-                      ? null
-                      : () => _updateStatus('completed'),
-                  child: Text('Đánh dấu hoàn thành'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: _isLoading
-                      ? null
-                      : () => _updateStatus('cancelled'),
+                  onPressed:
+                      _isLoading ? null : () => _updateStatus('cancelled'),
                   child: Text('Hủy Đơn Hàng'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed:
+                      _isLoading ? null : () => _updateStatus('completed'),
+                  child: Text('Đánh dấu hoàn thành'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
                   ),
                 ),
               ],

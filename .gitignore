@@ -1,0 +1,68 @@
+# Node.js 
+node_modules/
+npm-debug.log*
+yarn-error.log
+yarn-debug.log
+.DS_Store
+.env
+.env.*.local
+
+# Logs
+logs/
+*.log
+*.log.*
+debug/
+stacktrace.log
+
+# Build
+dist/
+build/
+
+# Coverage
+coverage/
+
+# React.js
+.vscode/
+.eslintcache
+.next/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Generated iOS Files and Directories
+ios/Flutter/*.xcuserdatad
+ios/Flutter/flutter_export_environment.sh
+ios/.symlinks/
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Flutter/Generated.xcconfig
+*.iml
+
+# Generated Android Files
+android/.gradle/
+android/captures/
+android/*.keystore
+android/app/key.properties
+android/local.properties
+
+# Misc
+.idea/
+*.swp
+*.swo
+*.orig
+*.bak
+*.tmp
+
+# macOS/Windows
+*.DS_Store
+Thumbs.db
+
+# JetBrains IDEs
+.idea/
+*.iml

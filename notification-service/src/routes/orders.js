@@ -84,8 +84,12 @@ router.post('/', async(req, res) => {
         // Send notification to admin app
         const message = {
             notification: {
-                title: 'New Order Received',
-                body: `New order from ${order.customerInfo.name} - ${formatPrice(order.total)}₫`
+                title: 'Đơn Hàng Mới',
+                body: `Đơn hàng mới từ ${order.customerInfo.name} - ${formatPrice(order.total)}₫`
+            },
+            data: {
+                orderId: order.id,
+                type: 'new_order'
             },
             topic: 'admin-notifications'
         };
@@ -187,6 +191,22 @@ router.delete('/:id/notes/:noteId', async(req, res) => {
         }
 
         res.json({ message: 'Note deleted successfully' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Delete order
+router.delete('/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        const order = await Order.findByIdAndDelete(id);
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        res.json({ message: 'Order deleted successfully' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

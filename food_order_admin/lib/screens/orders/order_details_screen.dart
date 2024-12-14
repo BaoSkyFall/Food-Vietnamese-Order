@@ -87,7 +87,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order #${_order!.id}'),
+        title: Text('Mã Đơn #${_order!.id.substring(_order!.id.length - 4, _order!.id.length).toUpperCase()}'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, true),

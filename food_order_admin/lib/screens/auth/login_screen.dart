@@ -15,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: Text('Đăng Nhập')),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
+                    return 'Vui lòng nhập email';
                   }
                   return null;
                 },
@@ -41,13 +41,13 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: 'Mật Khẩu',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Vui lòng nhập mật khẩu';
                   }
                   return null;
                 },
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: _isLoading ? null : _handleLogin,
                 child: _isLoading
                     ? CircularProgressIndicator(color: Colors.white)
-                    : Text('Login'),
+                    : Text('Đăng Nhập'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
                 ),
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
                 },
-                child: Text('Don\'t have an account? Register'),
+                child: Text('Bạn không có tài khoản? Đăng Ký'),
               ),
             ],
           ),
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacementNamed(context, '/orders');
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: ${e.toString()}')),
+          SnackBar(content: Text('Đăng Nhập Thất Bại: ${e.toString()}')),
         );
       } finally {
         setState(() => _isLoading = false);

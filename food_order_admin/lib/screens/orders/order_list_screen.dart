@@ -46,7 +46,7 @@ class _OrdersListScreenState extends State<OrdersListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Orders'),
+        title: Text('Đơn Hàng'),
         actions: [
           IconButton(
             icon: Icon(Icons.filter_list),
@@ -63,6 +63,19 @@ class _OrdersListScreenState extends State<OrdersListScreen> {
             return OrderCard(
               order: order,
               onTap: () => _loadOrders(),
+              onDelete: () async {
+                try {
+                  await _orderService.deleteOrder(order.id);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Đơn hàng đã được xóa thành công')),
+                  );
+                  _loadOrders();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Không thể xóa đơn hàng: ${e.toString()}')),
+                  );
+                }
+              },
             );
           },
         ),

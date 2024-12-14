@@ -17,7 +17,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register')),
+      appBar: AppBar(title: Text('Đăng Ký')),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
+                    return 'Vui lòng nhập email';
                   }
                   return null;
                 },
@@ -43,13 +43,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: 'Mật Khẩu',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Vui lòng nhập mật khẩu';
                   }
                   return null;
                 },
@@ -58,13 +58,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               TextFormField(
                 controller: _confirmPasswordController,
                 decoration: InputDecoration(
-                  labelText: 'Confirm Password',
+                  labelText: 'Nhập Lại Mật Khẩu',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
                 validator: (value) {
                   if (value != _passwordController.text) {
-                    return 'Passwords do not match';
+                    return 'Mật Khẩu không khớp';
                   }
                   return null;
                 },
@@ -74,7 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onPressed: _isLoading ? null : _handleRegister,
                 child: _isLoading
                     ? CircularProgressIndicator(color: Colors.white)
-                    : Text('Register'),
+                    : Text('Đăng Ký'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
                 ),
@@ -84,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/login');
                 },
-                child: Text('Already have an account? Login'),
+                child: Text('Bạn đã có tài khoản? Đăng Nhập'),
               ),
             ],
           ),
@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.pushReplacementNamed(context, '/login');
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration failed: ${e.toString()}')),
+          SnackBar(content: Text('Đăng Ký Thất Bại: ${e.toString()}')),
         );
       } finally {
         setState(() => _isLoading = false);

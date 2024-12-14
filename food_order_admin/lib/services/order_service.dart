@@ -114,4 +114,18 @@ class OrderService {
       throw Exception('Failed to add note');
     }
   }
+
+  Future<void> deleteOrder(String orderId) async {
+    try {
+      final response = await http.delete(
+        Uri.parse('${ApiConfig.baseUrl}/orders/$orderId'),
+        headers: ApiConfig.headers,
+      );
+      if (response.statusCode != 200) {
+        throw Exception('Failed to delete order');
+      }
+    } catch (e) {
+      throw Exception('Failed to delete order: $e');
+    }
+  }
 }
